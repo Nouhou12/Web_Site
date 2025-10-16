@@ -17,6 +17,45 @@
         localStorage.setItem('myNumber', 42);
     </script>
     <script>
+        // Function to update the stored number and display
+        function updateNumber(delta) {
+            let num = parseInt(localStorage.getItem('myNumber') || '0', 10);
+            num += delta;
+            localStorage.setItem('myNumber', num);
+            const numberPara = document.getElementById('stored-number');
+            if (numberPara) {
+                numberPara.textContent = 'Stored number: ' + num;
+            }
+        }
+
+        // Add buttons after DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            const main = document.querySelector('main');
+            const btnContainer = document.createElement('div');
+            btnContainer.style.marginTop = '1rem';
+
+            const incBtn = document.createElement('button');
+            incBtn.textContent = 'Increase';
+            incBtn.onclick = function() { updateNumber(1); };
+
+            const decBtn = document.createElement('button');
+            decBtn.textContent = 'Decrease';
+            decBtn.style.marginLeft = '0.5rem';
+            decBtn.onclick = function() { updateNumber(-1); };
+
+            btnContainer.appendChild(incBtn);
+            btnContainer.appendChild(decBtn);
+
+            // Update the paragraph to have an id for easy updating
+            setTimeout(function() {
+                const numberPara = main.querySelector('p:last-child');
+                if (numberPara) numberPara.id = 'stored-number';
+            }, 0);
+
+            main.appendChild(btnContainer);
+        });
+    </script>
+    <script>
         // Retrieve the number from localStorage
         const myNumber = localStorage.getItem('myNumber');
         // When the DOM is loaded, display the number in the main section
