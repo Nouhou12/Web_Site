@@ -16,6 +16,17 @@
         // Store a number in localStorage
         localStorage.setItem('myNumber', 42);
     </script>
+    <script>
+        // Retrieve the number from localStorage
+        const myNumber = localStorage.getItem('myNumber');
+        // When the DOM is loaded, display the number in the main section
+        document.addEventListener('DOMContentLoaded', function() {
+            const main = document.querySelector('main');
+            const numberPara = document.createElement('p');
+            numberPara.textContent = 'Stored number: ' + myNumber;
+            main.appendChild(numberPara);
+        });
+    </script>
 </head>
 <body>
     <header>
