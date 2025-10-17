@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="""en
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Z-0101 is a website for showcasing projects.">
+    <meta name="keywords" content="Projet Display">
+    <meta name="author" content="Nouhou Issoufou">
+
+    <title>Website Template</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        // Retrieve the number from localStorage
+        const myNumber = localStorage.getItem('myNumber');
+        // When the DOM is loaded, display the number in the main section
+        document.addEventListener('DOMContentLoaded', function() {
+            const main = document.querySelector('header');
+            const numberPara = document.createElement('h2');
+            numberPara.textContent = 'Token: ' + myNumber;
+            main.appendChild(numberPara);
+        });
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const rewardBtn = document.getElementById('rewardBtn');
+            const header = document.querySelector('header');
+
+            function getStoredNumber() {
+                return parseInt(localStorage.getItem('myNumber'), 10) || 0;
+            }
+            function setStoredNumber(n) {
+                localStorage.setItem('myNumber', String(n));
+            }
+
+            // Find existing token display or create one
+            let numberPara = Array.from(header.querySelectorAll('h2')).find(h => h.textContent.trim().startsWith('Token:'));
+            if (!numberPara) {
+                numberPara = document.createElement('h2');
+                header.appendChild(numberPara);
+            }
+            function updateDisplay() {
+                numberPara.textContent = 'Token: ' + getStoredNumber();
+            }
+            updateDisplay();
+
+            if (rewardBtn) {
+                rewardBtn.addEventListener('click', function(e) {
+                    e.preventDefault(); // avoid following the enclosing link
+                    const newVal = getStoredNumber() + 1;
+                    setStoredNumber(newVal);
+                    updateDisplay();
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>My Website</h1>
+    </header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="Project.html">Project</a>
+        <a href="Submit.html">Submit your own project</a>
+        <a href="reward.html">Reward Page</a>
+    </nav>
+    <main>
+        <h2>Welcome!</h2>
+        <p>This is a reward page.</p>
+        <button id="rewardBtn">Click to Earn Points</button>
+    </main>
+    <footer>
+        &copy; 2024 My Website
+    </footer>
+</body>
+</html>
