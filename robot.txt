@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nouhou12.github.io/Z-0101/sitemap.xml
