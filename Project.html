@@ -19,30 +19,6 @@
             numberPara.textContent = 'Token: ' + myNumber;
             main.appendChild(numberPara);
         });
-        document.addEventListener('DOMContentLoaded', function() {
-            const main = document.querySelector('main');
-            const url = "https://docs.google.com/spreadsheets/d/1e0nGG8TdJsgquZhWgCvKVqXyCoXomm2nYTvJdHT11SQ/gviz/tq?tqx=out:csv";
-
-            fetch(url)
-                .then(response => response.text())
-                    .then(csv => {
-                        console.log(csv); // Données brutes CSV
-                        for(let i=0; i<= 10;i++){
-                            const numberPara = document.createElement('div');
-                            numberPara.textContent = 'ProjectName - description - Creator - Link';
-                            main.appendChild(numberPara);
-                        }          
-            })
-            .catch(error => console.error('Erreur:', error));
-
-            // Loop intiatiating
-            const numberPara = document.createElement('div');
-            const numberPara2 = document.createElement('div');
-            numberPara.textContent = 'ProjectName - description - Creator - Link';
-            numberPara2.textContent = 'ProjectName - description - Creator - Link';
-            main.appendChild(numberPara);
-            main.appendChild(numberPara2);
-        });
     </script>
     <script>
     document.addEventListener('DOMContentLoaded', function () {
