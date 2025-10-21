@@ -68,6 +68,7 @@
             const block = document.createElement('div');
             block.textContent = `${colonnes[0] || 'Nom'} - ${colonnes[1] || 'Description'} - ${colonnes[2] || 'Auteur'} - ${colonnes[3] || 'Lien'}`;
             main.appendChild(block);
+            console.log("Bloc ajouté :", block.textContent);
           }
         })
         .catch(error => console.error('Erreur:', error));
