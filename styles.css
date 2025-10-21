@@ -31,3 +31,9 @@ footer {
     width: 100%; 
     bottom: 0; 
 }
+div {
+    border-color: #333;
+    border-style: solid;
+    margin: 5%;
+    padding: 2rem;
+}

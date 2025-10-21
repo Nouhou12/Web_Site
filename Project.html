@@ -25,15 +25,23 @@
 
             fetch(url)
                 .then(response => response.text())
-                  .then(csv => {
-                    console.log(csv); // Données brutes CSV
-          })
+                    .then(csv => {
+                        console.log(csv); // Données brutes CSV
+                        for(let i=0; i<= 10;i++){
+                            const numberPara = document.createElement('div');
+                            numberPara.textContent = 'ProjectName - description - Creator - Link';
+                            main.appendChild(numberPara);
+                        }          
+            })
             .catch(error => console.error('Erreur:', error));
 
             // Loop intiatiating
             const numberPara = document.createElement('div');
+            const numberPara2 = document.createElement('div');
             numberPara.textContent = 'ProjectName - description - Creator - Link';
+            numberPara2.textContent = 'ProjectName - description - Creator - Link';
             main.appendChild(numberPara);
+            main.appendChild(numberPara2);
         });
     </script>
 </head>
@@ -43,9 +51,11 @@
     </header>
     <nav>
         <a href="index.html">Home</a>
+        <a href="FeaturedProject.html">Featured Project</a>
         <a href="Project.html">Project</a>
         <a href="Submit.html">Submit your own project</a>
         <a href="reward.html">Reward Page</a>
+        <a href="Contact.html">Contact</a>
     </nav>
     <main>
         <h2>Welcome!</h2>
