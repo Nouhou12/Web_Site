@@ -44,6 +44,35 @@
             main.appendChild(numberPara2);
         });
     </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const main = document.querySelector('main');
+      const sheetId = "1e0nGG8TdJsgquZhWgCvKVqXyCoXomm2nYTvJdHT11SQ";
+      const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv`;
+      const proxy = "https://api.allorigins.win/raw?url="; // ✅ Proxy pour contourner CORS
+
+      fetch(proxy + encodeURIComponent(url))
+        .then(response => {
+          if (!response.ok) throw new Error("Erreur réseau : " + response.status);
+          return response.text();
+        })
+        .then(csv => {
+          console.log("Données CSV :", csv);
+
+          // Convertir le CSV en lignes
+          const lignes = csv.split('\n');
+          for (let i = 0; i < lignes.length; i++) {
+            const colonnes = lignes[i].split(',');
+
+            // Exemple : chaque ligne du Google Sheet → un bloc HTML
+            const block = document.createElement('div');
+            block.textContent = `${colonnes[0] || 'Nom'} - ${colonnes[1] || 'Description'} - ${colonnes[2] || 'Auteur'} - ${colonnes[3] || 'Lien'}`;
+            main.appendChild(block);
+          }
+        })
+        .catch(error => console.error('Erreur:', error));
+    });
+    </script>
 </head>
 <body>
     <header>
