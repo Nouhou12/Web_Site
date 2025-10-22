@@ -25,7 +25,7 @@
     const sheetId = "1m1At1nq4GiobfB5D-l0ilSxWHw4f2KjPmzX35uFpJvU";
     const url = `https://docs.google.com/spreadsheets/d/1m1At1nq4GiobfB5D-l0ilSxWHw4f2KjPmzX35uFpJvU/gviz/tq?tqx=out:csv`;
 
-    fetch("https://cors-anywhere.herokuapp.com" + url)
+    fetch(url)
         .then(response => {
             if (!response.ok) throw new Error("Erreur réseau : " + response.status);
             return response.text();
