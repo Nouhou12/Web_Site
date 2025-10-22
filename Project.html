@@ -24,7 +24,8 @@
     document.addEventListener('DOMContentLoaded', function () {
       const main = document.querySelector('main');
       const sheetId = "1m1At1nq4GiobfB5D-l0ilSxWHw4f2KjPmzX35uFpJvU";
-      const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv`;
+      
+      const url = 'https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tq=select%20*&tqx=responseHandler:afficherDonnees';
       const proxy = "https://api.allorigins.win/raw?url="; // ✅ Proxy pour contourner CORS
 
       fetch(proxy + encodeURIComponent(url))
