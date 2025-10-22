@@ -21,32 +21,40 @@
         });
     </script>
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const main = document.querySelector('main');
-      const sheetId = "1m1At1nq4GiobfB5D-l0ilSxWHw4f2KjPmzX35uFpJvU";
-      
-      fetch(url)
+    const main = document.querySelector('main');
+    const sheetId = "1m1At1nq4GiobfB5D-l0ilSxWHw4f2KjPmzX35uFpJvU";
+    const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv`;
+
+    fetch(url)
         .then(response => {
-          if (!response.ok) throw new Error("Erreur réseau : " + response.status);
-          return response.text();
+            if (!response.ok) throw new Error("Erreur réseau : " + response.status);
+            return response.text();
         })
         .then(csv => {
-          console.log("Données CSV :", csv);
+            console.log("Données CSV :", csv);
 
-          // Convertir le CSV en lignes
-          const lignes = csv.split('\n');
-          for (let i = 0; i < lignes.length; i++) {
-            const colonnes = lignes[i].split(',');
+            // Conversion du CSV en lignes
+            const lignes = csv.trim().split('\n');
+            
+            // Parcours des lignes et affichage
+            lignes.forEach((ligne, index) => {
+                const colonnes = ligne.split(',');
+                if (index === 0) return; // Ignorer l'en-tête éventuel
 
-            // Exemple : chaque ligne du Google Sheet → un bloc HTML
-            const block = document.createElement('div');
-            block.textContent = `${colonnes[0] || 'Nom'} - ${colonnes[1] || 'Description'} - ${colonnes[2] || 'Auteur'} - ${colonnes[3] || 'Lien'}`;
-            main.appendChild(block);
-            console.log("Bloc ajouté :", block.textContent);
-          }
+                const block = document.createElement('div');
+                block.classList.add('data-block');
+                block.textContent = `${colonnes[0] || 'Nom inconnu'} - ${colonnes[1] || 'Description'} - ${colonnes[2] || 'Auteur'} - ${colonnes[3] || 'Lien'}`;
+                main.appendChild(block);
+
+                console.log("Bloc ajouté :", block.textContent);
+            });
         })
-        .catch(error => console.error('Erreur:', error));
-    });
+        .catch(error => {
+            console.error('Erreur :', error);
+            const errorMsg = document.createElement('p');
+            errorMsg.textContent = "Impossible de charger les données.";
+            main.appendChild(errorMsg);
+        });
     </script>
 </head>
 <body>
