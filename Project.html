@@ -39,6 +39,8 @@
                     if (index === 0) return; // Ignorer l'en-tête éventuel
                     const colonnes = ligne.split(',');
 
+                    const nettoyé = colonnes.map(val => val.replace(/^"|"$/g, '').trim());
+
                     const block = document.createElement('div');
                     block.classList.add('data-block');
 
