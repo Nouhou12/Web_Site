@@ -21,62 +21,59 @@
         });
     </script>
     <script>
-    const main = document.querySelector('main');
-    const sheetId = "1m1At1nq4GiobfB5D-l0ilSxWHw4f2KjPmzX35uFpJvU";
-    const url = `https://docs.google.com/spreadsheets/d/1m1At1nq4GiobfB5D-l0ilSxWHw4f2KjPmzX35uFpJvU/gviz/tq?tqx=out:csv`;
+    document.addEventListener('DOMContentLoaded', function () {
+        const main = document.querySelector('main');
+        const sheetId = "1m1At1nq4GiobfB5D-l0ilSxWHw4f2KjPmzX35uFpJvU";
+        const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv`;
 
-    fetch(url)
-    .then(response => {
-        if (!response.ok) throw new Error("Erreur réseau : " + response.status);
-        return response.text();
-    })
-    .then(csv => {
-        console.log("Données CSV :", csv);
+        fetch(url)
+            .then(response => {
+                if (!response.ok) throw new Error("Erreur réseau : " + response.status);
+                return response.text();
+            })
+            .then(csv => {
+                console.log("Données CSV :", csv);
+                const lignes = csv.trim().split('\n');
 
-        const lignes = csv.trim().split('\n');
+                lignes.forEach((ligne, index) => {
+                    if (index === 0) return; // Ignorer l'en-tête éventuel
+                    const colonnes = ligne.split(',');
 
-        lignes.forEach((ligne, index) => {
-            const colonnes = ligne.split(',');
-            if (index === 0) return; // Ignorer l'en-tête éventuel
+                    const block = document.createElement('div');
+                    block.classList.add('data-block');
 
-            const block = document.createElement('div');
-            block.classList.add('data-block');
+                    const nom = document.createElement('strong');
+                    nom.textContent = colonnes[0] || 'Nom inconnu';
 
-            // Création des éléments
-            const nom = document.createElement('strong');
-            nom.textContent = colonnes[0] || 'Nom inconnu';
+                    const description = document.createElement('span');
+                    description.textContent = ` — ${colonnes[1] || 'Description'}`;
 
-            const description = document.createElement('span');
-            description.textContent = ` — ${colonnes[1] || 'Description'}`;
+                    const auteur = document.createElement('em');
+                    auteur.textContent = ` — ${colonnes[2] || 'Auteur inconnu'}`;
 
-            const auteur = document.createElement('em');
-            auteur.textContent = ` — ${colonnes[2] || 'Auteur inconnu'}`;
+                    const lien = document.createElement('a');
+                    lien.textContent = ' 🔗 Lien';
+                    lien.href = colonnes[3] || '#';
+                    lien.target = '_blank';
+                    lien.rel = 'noopener noreferrer';
 
-            const lien = document.createElement('a');
-            lien.textContent = ' 🔗 Lien';
-            lien.href = colonnes[3] || '#';
-            lien.target = '_blank'; // ouvre dans un nouvel onglet
-            lien.rel = 'noopener noreferrer';
+                    block.appendChild(nom);
+                    block.appendChild(description);
+                    block.appendChild(auteur);
+                    block.appendChild(document.createTextNode(' — '));
+                    block.appendChild(lien);
 
-            // Assemblage du bloc
-            block.appendChild(nom);
-            block.appendChild(description);
-            block.appendChild(auteur);
-            block.appendChild(document.createTextNode(' — '));
-            block.appendChild(lien);
-
-            main.appendChild(block);
-
-            console.log("Bloc ajouté :", block.textContent);
-        });
-    })
-    .catch(error => {
-        console.error('Erreur :', error);
-        const errorMsg = document.createElement('p');
-        errorMsg.textContent = "Impossible de charger les données.";
-        main.appendChild(errorMsg);
+                    main.appendChild(block);
+                    console.log("Bloc ajouté :", block.textContent);
+                });
+            })
+            .catch(error => {
+                console.error('Erreur :', error);
+                const errorMsg = document.createElement('p');
+                errorMsg.textContent = "Impossible de charger les données.";
+                main.appendChild(errorMsg);
+            });
     });
-
     </script>
 </head>
 <body>
